@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://godotsoccer.gd" type="Script" id=2]
@@ -6,27 +6,87 @@
 [ext_resource path="res://CARS/carred.fbx" type="PackedScene" id=4]
 [ext_resource path="res://CARS/carblue.fbx" type="PackedScene" id=5]
 [ext_resource path="res://gate/gate.fbx" type="PackedScene" id=6]
+[ext_resource path="res://FOOTBALL/ball.fbx" type="PackedScene" id=7]
+[ext_resource path="res://fence/fence.fbx" type="PackedScene" id=10]
 
 [sub_resource type="ProceduralSky" id=1]
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+fog_height_enabled = true
+fog_height_min = 0.3
 tonemap_mode = 2
 auto_exposure_enabled = true
 ss_reflections_enabled = true
+ssao_enabled = true
+dof_blur_far_distance = 100.73
+adjustment_enabled = true
 
 [sub_resource type="SpatialMaterial" id=8]
+flags_disable_ambient_light = true
 albedo_color = Color( 0.0156863, 0.364706, 0.0117647, 1 )
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_disable_ambient_light = true
+
+[sub_resource type="SpatialMaterial" id=18]
+flags_disable_ambient_light = true
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_disable_ambient_light = true
+
+[sub_resource type="SpatialMaterial" id=16]
+flags_disable_ambient_light = true
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_disable_ambient_light = true
 
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 1, 9.05424, 22.1877 )
 
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 1.37154, 1.42866, 0.479952 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 2.44126, 5.73915, 25.1592 )
+
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.53358, 0.765706, 0.647945 )
 
+[sub_resource type="SpatialMaterial" id=13]
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.0313726, 0.352941, 0.0745098, 1 )
+
+[sub_resource type="SpatialMaterial" id=19]
+albedo_color = Color( 0.54902, 0.54902, 0.54902, 1 )
+
+[sub_resource type="SpatialMaterial" id=20]
+albedo_color = Color( 0.407843, 0.301961, 0.0980392, 1 )
+
+[sub_resource type="SpatialMaterial" id=21]
+albedo_color = Color( 0.0352941, 0.309804, 0.376471, 1 )
+
+[sub_resource type="SpatialMaterial" id=22]
+albedo_color = Color( 0.382813, 0.382813, 0.382813, 1 )
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_color = Color( 0.384314, 0.384314, 0.384314, 1 )
+
+[sub_resource type="SpatialMaterial" id=24]
+albedo_color = Color( 0.470588, 0.470588, 0.470588, 1 )
+
+[sub_resource type="SpatialMaterial" id=25]
+albedo_color = Color( 0.505882, 0.282353, 0.0235294, 1 )
+
+[sub_resource type="SpatialMaterial" id=26]
+albedo_color = Color( 0.482353, 0.290196, 0.0705882, 1 )
+
+[sub_resource type="SpatialMaterial" id=27]
+albedo_color = Color( 0.490196, 0.227451, 0.227451, 1 )
+
 [sub_resource type="CapsuleShape" id=6]
-radius = 0.557757
+radius = 0.918861
 height = 0.002
 
 [node name="Spatial" type="Spatial"]
@@ -49,10 +109,12 @@ material = SubResource( 8 )
 [node name="CentralLine" type="CSGBox" parent="CSGCombiner/Playfield"]
 height = 1.01
 depth = 93.4618
+material = SubResource( 14 )
 
 [node name="CentralCircle" type="CSGCylinder" parent="CSGCombiner/Playfield/CentralLine"]
 radius = 22.977
 height = 1.01
+material = SubResource( 18 )
 
 [node name="InnerCircleToSubstract" type="CSGCylinder" parent="CSGCombiner/Playfield/CentralLine/CentralCircle"]
 operation = 2
@@ -63,56 +125,67 @@ height = 1.01
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -98.3033, 0, 0 )
 height = 1.01
 depth = 90.0
+material = SubResource( 15 )
 
 [node name="LeftMarginLine" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 98.3625, 0, 0 )
 height = 1.01
 depth = 90.0
+material = SubResource( 16 )
 
 [node name="UpperMarginLine" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 46.1339 )
 width = 195.0
 height = 1.01
+material = SubResource( 17 )
 
 [node name="LowerMarginLine" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46.1616 )
 width = 195.0
 height = 1.01
+material = SubResource( 17 )
 
 [node name="LeftGate1" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 75.9085, 0, 0 )
 height = 1.01
 depth = 45.0
+material = SubResource( 17 )
 
 [node name="LeftGate2" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 86.9749, 0, 23.4745 )
 width = 24.1527
 height = 1.01
+material = SubResource( 17 )
 
 [node name="LeftGate3" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 86.9749, 0, -23.4447 )
 width = 24.1527
 height = 1.01
+material = SubResource( 17 )
 
 [node name="RightGate1" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( -1, 0, -0.000942432, 0, 1, 0, 0.000942432, 0, -1, -74.1894, 0, 0.465599 )
 height = 1.01
 depth = 45.0
+material = SubResource( 17 )
 
 [node name="RightGate2" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( -1, 0, -0.000942432, 0, 1, 0, 0.000942432, 0, -1, -85.2779, 0, -22.9985 )
 width = 24.1527
 height = 1.01
+material = SubResource( 17 )
 
 [node name="RightGate3" type="CSGBox" parent="CSGCombiner/Playfield"]
 transform = Transform( -1, 0, -0.000942432, 0, 1, 0, 0.000942432, 0, -1, -85.2337, 0, 23.9207 )
 width = 24.1527
 height = 1.01
+material = SubResource( 17 )
 
 [node name="RightGateCircle" type="CSGCylinder" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -72.88, 0, 0 )
 radius = 11.0
 height = 1.01
+material = SubResource( 17 )
 
 [node name="InnerSubstractionCylinder" type="CSGCylinder" parent="CSGCombiner/Playfield/RightGateCircle"]
 operation = 2
@@ -130,6 +203,7 @@ depth = 20.0
 transform = Transform( -0.999999, 0, -0.00102964, 0, 1, 0, 0.00102964, 0, -0.999999, 74.8241, 0, 0 )
 radius = 11.0
 height = 1.01
+material = SubResource( 17 )
 
 [node name="InnerSubstractionCylinder" type="CSGCylinder" parent="CSGCombiner/Playfield/LeftGateCircle"]
 operation = 2
@@ -151,9 +225,6 @@ gravity = 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
 shape = SubResource( 7 )
 
-[node name="gate" parent="CSGCombiner/Playfield/Team1GoalArea/CollisionShape" instance=ExtResource( 6 )]
-transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 5.75, -2.29014, -2.57504, -1.76839 )
-
 [node name="Team2GoalArea" type="Area" parent="CSGCombiner/Playfield"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100.397, -0.161507, 0 )
 gravity = 0.0
@@ -162,11 +233,386 @@ gravity = 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
 shape = SubResource( 7 )
 
-[node name="gate" parent="CSGCombiner/Playfield/Team2GoalArea/CollisionShape" instance=ExtResource( 6 )]
-transform = Transform( -5.99969, 0, -0.0584062, 0, 6, 0, 0.0609456, 0, -5.7497, 3.5383, -2.57504, 2.80974 )
+[node name="LowerFence1" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -85.9581, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence1/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence2" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -71.589, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence2/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence3" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -57.2421, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence3/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence4" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -42.887, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence4/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence5" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -28.4788, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence5/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence6" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, -14.1409, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence6/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence7" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 0.348831, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence7/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence8" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 14.8417, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence8/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence9" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 29.1869, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence9/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence10" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 43.6459, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence10/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence11" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 58.117, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence11/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence12" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 72.5643, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence12/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence13" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 86.9627, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence13"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence13/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LowerFence14" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -4.99998, 0, 0.0150962, 0, 4, 0, -0.0150962, 0, -4.99998, 98.5662, 0.906751, 48.1368 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LowerFence14"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LowerFence14/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence1" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 86.1821, 0.457143, -48.9517 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence1/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence2" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 71.813, 0.457143, -48.9322 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence2/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence3" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 57.4662, 0.457143, -48.9126 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence3/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence4" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 43.1111, 0.457143, -48.8931 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence4/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence5" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 28.7029, 0.457143, -48.8735 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence5/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence6" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, 14.365, 0.457143, -48.854 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence6/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence7" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -0.124756, 0.457143, -48.8342 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence7/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence8" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -14.6176, 0.457143, -48.8145 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence8/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence9" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -28.9628, 0.457143, -48.795 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence9/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence10" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -43.4217, 0.457143, -48.7753 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence10/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence11" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -57.8929, 0.457143, -48.7556 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence11/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence12" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -72.3402, 0.457143, -48.7359 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence12/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence13" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -86.7386, 0.457143, -48.7163 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence13"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence13/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="UpperFence14" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 4.99999, 0, -0.00828957, 0, 4, 0, 0.00828957, 0, 4.99999, -98.3421, 0.457143, -48.7005 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/UpperFence14"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/UpperFence14/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LeftFence1" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -0.0360416, 0, 4.99987, 0, 4, 0, -4.99987, 0, -0.0360416, -100.065, 0.906751, 37.5506 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LeftFence1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LeftFence1/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LeftFence2" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -0.0360416, 0, 4.99987, 0, 4, 0, -4.99987, 0, -0.0360416, -99.9184, 0.906751, 47.6871 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LeftFence2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LeftFence2/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LeftFence3" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -0.0360416, 0, 4.99987, 0, 4, 0, -4.99987, 0, -0.0360416, -100.065, 0.906751, -34.3918 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LeftFence3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LeftFence3/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="LeftFence4" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -0.0360416, 0, 4.99987, 0, 4, 0, -4.99987, 0, -0.0360416, -99.9184, 0.906751, -22.8358 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/LeftFence4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/LeftFence4/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="RightFence1" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 0.0534069, 0, -4.99971, 0, 4, 0, 4.99971, 0, 0.0534069, 100.235, 0.906751, 33.5159 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightFence1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/RightFence1/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="RightFence2" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 0.0534069, 0, -4.99971, 0, 4, 0, 4.99971, 0, 0.0534069, 100.053, 0.906751, 23.38 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightFence2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/RightFence2/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="RightFence3" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 0.0534069, 0, -4.99971, 0, 4, 0, 4.99971, 0, 0.0534069, 100.235, 0.906751, -36.7337 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightFence3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/RightFence3/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="RightFence4" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 0.0534069, 0, -4.99971, 0, 4, 0, 4.99971, 0, 0.0534069, 100.053, 0.906751, -46.8697 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightFence4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40097, 0.991901, 0.16169 )
+shape = SubResource( 10 )
+
+[node name="fence" parent="CSGCombiner/Playfield/RightFence4/CollisionShape" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16347, 0 )
+
+[node name="RightGateVisual" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( -0.999876, 0, -0.0157249, 0, 1, 0, 0.0157249, 0, -0.999876, 104.761, 5.99943, 2.64549 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightGateVisual"]
+shape = SubResource( 12 )
+
+[node name="gate" parent="CSGCombiner/Playfield/RightGateVisual/CollisionShape" instance=ExtResource( 6 )]
+transform = Transform( 5.75, 0, 0, 0, 5.75, 0, 0, 0, 5.75, 0, 0, 0 )
+
+[node name="RightGateVisual2" type="StaticBody" parent="CSGCombiner/Playfield"]
+transform = Transform( 0.999993, 0, -0.00364752, 0, 1, 0, 0.00364752, 0, 0.999993, -105.381, 5.99943, -2.72165 )
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/RightGateVisual2"]
+shape = SubResource( 12 )
+
+[node name="gate" parent="CSGCombiner/Playfield/RightGateVisual2/CollisionShape" instance=ExtResource( 6 )]
+transform = Transform( 5.75, 0, 0, 0, 5.75, 0, 0, 0, 5.75, 0, 0, 0 )
 
 [node name="Player" type="KinematicBody" parent="CSGCombiner"]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 3.57762, 11.403 )
+transform = Transform( -5.99937, 0, 0.0867055, 0, 6, 0, -0.0867055, 0, -5.99937, -1.52588e-05, 5.16054, 29.219 )
 script = ExtResource( 1 )
 
 [node name="CollisionBody" type="CollisionShape" parent="CSGCombiner/Player"]
@@ -177,7 +623,7 @@ shape = SubResource( 4 )
 transform = Transform( 0.4, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 1.14558, -0.681964, 0 )
 
 [node name="Enemy" type="KinematicBody" parent="CSGCombiner"]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 3.61985, 0 )
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 5.18436, -32.8297 )
 script = ExtResource( 3 )
 
 [node name="CollisionBody" type="CollisionShape" parent="CSGCombiner/Enemy"]
@@ -187,21 +633,1222 @@ shape = SubResource( 4 )
 [node name="carblue" parent="CSGCombiner/Enemy/CollisionBody" instance=ExtResource( 5 )]
 transform = Transform( 0.4, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 2.37877, -0.693183, 0 )
 
+[node name="Position3D" type="Position3D" parent="CSGCombiner"]
+
+[node name="OutArea" type="CSGBox" parent="CSGCombiner/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555817, -30.9586 )
+width = 300.0
+height = 1.0
+depth = 300.0
+material = SubResource( 13 )
+
+[node name="Building1" type="Position3D" parent="CSGCombiner/Position3D/OutArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -92.1163, 0, -107.685 )
+
+[node name="Building1" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03819, 25.4953, -1.6283 )
+width = 40.0
+height = 50.0
+depth = 40.0
+material = SubResource( 19 )
+
+[node name="Level1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+
+[node name="Window1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7073, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87536, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6761, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93558, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level1/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Stairs" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0480804, -24.11, 24.1746 )
+width = 9.05729
+height = 7.26281
+depth = 8.69342
+material = SubResource( 22 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60063, 3.47295 )
+operation = 2
+width = 6.85224
+height = 4.31005
+material = SubResource( 23 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.37694, 1.95532 )
+operation = 2
+width = 6.85224
+height = 4.31005
+depth = 2.93358
+material = SubResource( 23 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.63643, -0.593796 )
+operation = 2
+width = 6.85224
+height = 4.31005
+depth = 2.93358
+material = SubResource( 23 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98703, 6.56612, 3.34166 )
+width = 0.697882
+height = 8.41985
+depth = 0.616448
+material = SubResource( 24 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96043, 6.56612, 3.34166 )
+width = 0.697882
+height = 8.41985
+depth = 0.616448
+material = SubResource( 24 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.9689, 0 )
+width = 9.58162
+height = 0.505329
+depth = 9.53311
+material = SubResource( 25 )
+
+[node name="Door" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -17.298, 20.0611 )
+width = 6.80586
+height = 7.89907
+depth = 0.705528
+material = SubResource( 26 )
+
+[node name="Handler" type="CSGSphere" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Stairs/Door"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76849, 0, 0 )
+radius = 0.542245
+material = SubResource( 27 )
+
+[node name="Level2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.78843, 0 )
+
+[node name="Window1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7073, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87536, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6761, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93558, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window5" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46242, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level2/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Level3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.7073, 0 )
+
+[node name="Window1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7073, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87536, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6761, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93558, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window5" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46242, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level3/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Level4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.5872, 0 )
+
+[node name="Window1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7073, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87536, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6761, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93558, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window5" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46242, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level4/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Level5" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.734, 0 )
+
+[node name="Window1" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7073, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window1"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window2" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87536, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window2"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window3" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6761, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window3"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window4" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93558, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window4"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Window5" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46242, -26.1603, 0 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 12.6539, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22657, 7.55274, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, -1.23939, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
+[node name="Position3D" type="Position3D" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2891, 19.8379 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1064, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -0.140049, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31192, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5/Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0949249, -2.30726, 0 )
+material = SubResource( 21 )
+
+[node name="CSGBox8" type="CSGBox" parent="CSGCombiner/Position3D/OutArea/Building1/Building1/Level5/Window5"]
+transform = Transform( 0.00211187, 0.999998, 0, -0.999998, 0.00211187, 0, 0, 0, 1, 3.78442, 10.0855, 19.1855 )
+width = 5.27795
+height = 0.36522
+material = SubResource( 20 )
+
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.790358, 0.612645, 0, -0.612645, -0.790358, 51.1227, 49.8416, -67.0961 )
 shadow_enabled = true
 
 [node name="Ball" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50.8928, 1.98901, 3.53555 )
+transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 50.8928, 1.71544, 2.85701 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ball"]
 shape = SubResource( 6 )
 
-[node name="CSGSphere" type="CSGSphere" parent="Ball/CollisionShape"]
-radius = 0.561427
+[node name="ball" parent="Ball/CollisionShape" instance=ExtResource( 7 )]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.544639, 0.838671, 0, -0.838671, 0.544639, 51, 33.3263, 31.3611 )
+transform = Transform( 1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 51, 33.243, 28.0013 )
 fov = 85.0
 far = 200.0
 

@@ -97,8 +97,9 @@ func _physics_process(delta):
 	if current_collision_index > NO_COLLISION:
 		velocity.z *= 0.2
 		collided_object = self.get_parent().get_node(get_slide_collision(current_collision_index - 1).collider.name)
-		if typeof(collided_object) == 17:
-			collided_object.move_and_slide(movement_direction_vector * 125)
+		if collided_object != null:
+			if typeof(collided_object) == 17:
+				collided_object.move_and_slide(movement_direction_vector * 125)
 		
 	# apply velocity vector to the method responsible for movement
 	move_and_slide(transform.basis.xform(Vector3(0, 0, velocity.z)))

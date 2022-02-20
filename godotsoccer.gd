@@ -1,5 +1,10 @@
 extends Spatial
 
+# Import classes
+const HTerrain = preload("res://addons/zylann.hterrain/hterrain.gd")
+const HTerrainData = preload("res://addons/zylann.hterrain/hterrain_data.gd")
+const HTerrainTextureSet = preload("res://addons/zylann.hterrain/hterrain_texture_set.gd")
+
 #onready var result_panel_label = get_node("ResultPanel/Label")
 var player1_score = 0
 #onready var player1_scorelabel = get_node("ScoresPanel/Player1ScoreLabel")
