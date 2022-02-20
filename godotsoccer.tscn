@@ -1,7 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://godotsoccer.gd" type="Script" id=2]
+[ext_resource path="res://Enemy.gd" type="Script" id=3]
+[ext_resource path="res://CARS/carred.fbx" type="PackedScene" id=4]
+[ext_resource path="res://CARS/carblue.fbx" type="PackedScene" id=5]
+[ext_resource path="res://gate/gate.fbx" type="PackedScene" id=6]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -12,25 +16,18 @@ tonemap_mode = 2
 auto_exposure_enabled = true
 ss_reflections_enabled = true
 
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0, 1, 0, 1 )
-normal_enabled = true
-normal_scale = 1.0
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.0156863, 0.364706, 0.0117647, 1 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 1, 9.05424, 22.1877 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.53358, 0.765706, 0.647945 )
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.690196, 0.0980392, 0.0980392, 1 )
-normal_enabled = true
-normal_scale = 1.0
-
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.557757
 height = 0.002
-
-[sub_resource type="BoxShape" id=7]
-extents = Vector3( 1, 9.05424, 22.1877 )
 
 [node name="Spatial" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.3257, 0.177002, -60.6511 )
@@ -40,14 +37,14 @@ script = ExtResource( 2 )
 environment = SubResource( 2 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50.8548, 0.161507, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 50.8548, 0.161507, 0 )
 use_collision = true
 
 [node name="Playfield" type="CSGBox" parent="CSGCombiner"]
 width = 200.0
 height = 1.0
 depth = 100.0
-material = SubResource( 3 )
+material = SubResource( 8 )
 
 [node name="CentralLine" type="CSGBox" parent="CSGCombiner/Playfield"]
 height = 1.01
@@ -146,31 +143,53 @@ width = 10.0
 height = 1.01
 depth = 20.0
 
+[node name="Team1GoalArea" type="Area" parent="CSGCombiner/Playfield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100.402, -0.161507, 0 )
+gravity = 0.0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/Team1GoalArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
+shape = SubResource( 7 )
+
+[node name="gate" parent="CSGCombiner/Playfield/Team1GoalArea/CollisionShape" instance=ExtResource( 6 )]
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 5.75, -2.29014, -2.57504, -1.76839 )
+
+[node name="Team2GoalArea" type="Area" parent="CSGCombiner/Playfield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100.397, -0.161507, 0 )
+gravity = 0.0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Playfield/Team2GoalArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
+shape = SubResource( 7 )
+
+[node name="gate" parent="CSGCombiner/Playfield/Team2GoalArea/CollisionShape" instance=ExtResource( 6 )]
+transform = Transform( -5.99969, 0, -0.0584062, 0, 6, 0, 0.0609456, 0, -5.7497, 3.5383, -2.57504, 2.80974 )
+
 [node name="Player" type="KinematicBody" parent="CSGCombiner"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.183678, 1.33666, 11.358 )
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 3.57762, 11.403 )
 script = ExtResource( 1 )
 
 [node name="CollisionBody" type="CollisionShape" parent="CSGCombiner/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.212, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="Body" type="CSGBox" parent="CSGCombiner/Player/CollisionBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268261, -0.0332783 )
-width = 0.999625
-height = 1.0
-depth = 1.0
-material = SubResource( 5 )
+[node name="carred" parent="CSGCombiner/Player/CollisionBody" instance=ExtResource( 4 )]
+transform = Transform( 0.4, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 1.14558, -0.681964, 0 )
 
-[node name="Head" type="CSGBox" parent="CSGCombiner/Player/CollisionBody/Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.697574, 0 )
-width = 0.5
-height = 0.5
-depth = 0.5
+[node name="Enemy" type="KinematicBody" parent="CSGCombiner"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 3.61985, 0 )
+script = ExtResource( 3 )
 
-[node name="Camera" type="Camera" parent="CSGCombiner/Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.910759, 3.65093 )
+[node name="CollisionBody" type="CollisionShape" parent="CSGCombiner/Enemy"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.212, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="carblue" parent="CSGCombiner/Enemy/CollisionBody" instance=ExtResource( 5 )]
+transform = Transform( 0.4, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 2.37877, -0.693183, 0 )
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.790358, 0.612645, 0, -0.612645, -0.790358, 51.1227, 49.8416, -67.0961 )
+shadow_enabled = true
 
 [node name="Ball" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50.8928, 1.98901, 3.53555 )
@@ -181,21 +200,10 @@ shape = SubResource( 6 )
 [node name="CSGSphere" type="CSGSphere" parent="Ball/CollisionShape"]
 radius = 0.561427
 
-[node name="Team1GoalArea" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5474, 0, 0 )
-gravity = 0.0
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.544639, 0.838671, 0, -0.838671, 0.544639, 51, 33.3263, 31.3611 )
+fov = 85.0
+far = 200.0
 
-[node name="CollisionShape" type="CollisionShape" parent="Team1GoalArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
-shape = SubResource( 7 )
-
-[node name="Team2GoalArea" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 151.252, 0, 0 )
-gravity = 0.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Team2GoalArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18519, 0 )
-shape = SubResource( 7 )
-
-[connection signal="body_entered" from="Team1GoalArea" to="." method="_on_Team1GoalArea_body_entered"]
-[connection signal="body_entered" from="Team2GoalArea" to="." method="_on_Team2GoalArea_body_entered"]
+[connection signal="body_entered" from="CSGCombiner/Playfield/Team1GoalArea" to="." method="_on_Team1GoalArea_body_entered"]
+[connection signal="body_entered" from="CSGCombiner/Playfield/Team2GoalArea" to="." method="_on_Team2GoalArea_body_entered"]
