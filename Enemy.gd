@@ -1,19 +1,24 @@
 extends KinematicBody
 
-# movement constants
 const MAX_SPEED = 15
 const ACCELERATION = 1.3
 const INERTION = 1
 
+const NO_COLLISION = 0
 var boost_window = 20
 
-# rotation speed and velocity vector
 const ROTATION_SPEED = 0.03
 var velocity = Vector3()
 
+var movement_direction_vector = Vector3(0, 0, 0)
+var prev_location = Position3D
+var collided_object = null
+var current_collision_index = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	# initialize location of the object
+	prev_location = self.global_transform.origin
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -27,21 +32,27 @@ func _physics_process(delta):
 	var current_acceleration = ACCELERATION
 	
 	if Input.is_action_pressed("enemy_move_forward"):
-		acceleration_vec.z -= 1
-	if Input.is_action_pressed("enemy_move_back"):
 		acceleration_vec.z += 1
+	if Input.is_action_pressed("enemy_move_back"):
+		acceleration_vec.z -= 1
 		
 	if Input.is_action_pressed("enemy_move_right"):
-		rotate_y(-ROTATION_SPEED)
+		if velocity.z > 0:
+			rotate_y(-ROTATION_SPEED)
+		if velocity.z < 0:
+			rotate_y(ROTATION_SPEED)
 	if Input.is_action_pressed("enemy_move_left"):
-		rotate_y(ROTATION_SPEED)
+		if velocity.z > 0:
+			rotate_y(ROTATION_SPEED)
+		if velocity.z < 0:
+			rotate_y(-ROTATION_SPEED)
 		
+	# boost of the car movement if "boost" button pressed
 	if Input.is_action_pressed("enemy_boost"):
 		if boost_window >= 2:
 			current_max_speed = MAX_SPEED * 1.5
 			current_acceleration = ACCELERATION * 1.5
 			boost_window -= 2
-	
 	
 	# perform vector normalization (evading errors of too many signals from button received)
 	acceleration_vec = acceleration_vec.normalized()
@@ -75,23 +86,23 @@ func _physics_process(delta):
 		velocity.z = current_max_speed
 	elif velocity.z < -current_max_speed:
 		velocity.z = -current_max_speed
+		
+	# section that finds movement direction vector of current car
+	movement_direction_vector = self.global_transform.origin - prev_location
+	prev_location = self.global_transform.origin
 
+	# apply collision mechanics for two cars, when one car impacts movement of 
+	# another car
+	current_collision_index = get_slide_count()
+	if current_collision_index > NO_COLLISION:
+		velocity.z *= 0.2
+		collided_object = self.get_parent().get_node(get_slide_collision(current_collision_index - 1).collider.name)
+		if collided_object != null:
+			if typeof(collided_object) == 17:
+				collided_object.move_and_slide(movement_direction_vector * 125)
+		
 	# apply velocity vector to the method responsible for movement
-	move_and_slide(transform.basis.xform(Vector3(0, 0, velocity.z))) 
+	move_and_slide(transform.basis.xform(Vector3(0, 0, velocity.z)))
 	
 	if boost_window < 20:
 		boost_window += 1
-	
-	# for debug
-#	print(velocity.z)
-		
-
-
-
-#func _physics_process(delta):
-#	var current_ball_position = get_parent().get_parent().get_node('Ball').global_transform.origin
-#	var myself_position = get_parent().get_node("Enemy").global_transform.origin
-##	print("ball position " + str(current_ball_position))
-##	print("enemy's position " + str(myself_position))
-#	print(get_parent().get_parent().get_node('Ball').linear_velocity)
-	
